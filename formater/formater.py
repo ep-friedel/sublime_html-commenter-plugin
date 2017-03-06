@@ -55,7 +55,7 @@ class AddCommentsCommand(sublime_plugin.TextCommand):
                         classlist = [cssclass for cssclass in classlist if bool(re.search('(col-xs|row|ep-(?!js))', cssclass))]
                         if (bool(re.search('.*\n.*', stack[-1].text)) and (len(classlist) > 0)):
                             classlist = ' '.join(classlist)
-                            match.text = re.sub('(<[^<>a-zA-Z]*div[^<>]*>)(\s*<!--.*?-->|)((.|\s)*)', '\g<1> <!-- ' + classlist + ' --> \g<3>', match.text)
+                            match.text = re.sub('(<[^<>a-zA-Z]*div[^<>]*>)(\s*<!--.*?-->|)((.|\s)*)', '\g<1> <!-- ' + classlist + ' -->\g<3>', match.text)
                         stack.pop()
                         newtext = newtext + match.text
                 else:
