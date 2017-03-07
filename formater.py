@@ -62,8 +62,7 @@ class AddCommentsCommand(sublime_plugin.TextCommand):
                             classlist = ' '.join(classlist)
                             match.text = re.sub('(<[^<>a-zA-Z]*div[^<>]*>)((.|#REM)*<!--.*?-->(.|#ENDREM)*|)((|.)*)', '\g<1> #REM<!-- ' + classlist + ' -->#ENDREM\g<5>', match.text)
 
-                        newtext = newtext + match.text
-
+                    newtext = newtext + match.text
                     stack.pop()
                 else:
                     sublime.error_message('Too many closing div-tags at tag nr: ' + str(iterVar))
