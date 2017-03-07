@@ -78,8 +78,8 @@
             "author": "Florian Riedel (friedel@epages.de)",
             "releases": [
                 {
-                  "sublime_text": "*",
-                  "tags": true
+                    "sublime_text": "*",
+                    "url": "https://codeload.github.com/ep-friedel/sublime_html-commenter-plugin/zip/master"
                 }
             ]
         }
