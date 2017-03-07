@@ -79,7 +79,7 @@
             "releases": [
                 {
                     "sublime_text": ">=3000",
-                    "version": "1.2",
+                    "version": "1.2.1",
                     "url": "https://codeload.github.com/ep-friedel/sublime_html-commenter-plugin/zip/master",
                     "date": "2017-03-07 19:00:00"
                 }
