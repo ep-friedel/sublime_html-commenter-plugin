@@ -8,5 +8,5 @@ if you want to add a keybinding paste (and adapt) the following line to keybindi
 {"keys": ["shift+ctrl+c"], "command": "add_comments"}
 
 # Installation:
-to install the plugin copy the folder into your Sublime/Packages folder ( Sublime > Preferences > Browse Packages )
-alternatively you can also add the formater.sublime-package to the Installed Packages-folder ( Sublime > Preferences > Browse Packages > one folder up > Installed Packages)
+to install the plugin [download](https://codeload.github.com/ep-friedel/sublime_html-commenter-plugin/zip/master) the folder into your Sublime/Packages folder ( Sublime > Preferences > Browse Packages )
+
