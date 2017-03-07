@@ -33,7 +33,7 @@ class AddCommentsCommand(sublime_plugin.TextCommand):
             optag = not bool(re.search('<[^<>]*\/[^<>]*div', match.group(0)))
             if optag:
                 result = re.search('class=["\']([^"\']*)', match.group(0))
-                classes = result.group(1)
+                classes = "" if result is None else result.group(1)
 
             else:
                 classes = ""
@@ -44,26 +44,38 @@ class AddCommentsCommand(sublime_plugin.TextCommand):
         if (iterVar == 0):
             return
 
+        iterVar = 0
+
         for match in parsedcollection:
+            iterVar = iterVar + 1
+
             if match.optag:
                 stack.append(match)
                 newtext = newtext + match.text
+
             else:
                 if len(stack) > 0:
                     if len(stack[-1].classes) > 0:
                         classlist = re.sub('#IF.*#ENDIF', '', stack[-1].classes).split(' ')
-                        classlist = [cssclass for cssclass in classlist if bool(re.search('(col-xs|row|ep-(?!js))', cssclass))]
+                        classlist = [cssclass for cssclass in classlist if bool(re.search('(col-|row|ep-(?!js))', cssclass))]
                         if (bool(re.search('.*\n.*', stack[-1].text)) and (len(classlist) > 0)):
                             classlist = ' '.join(classlist)
-                            match.text = re.sub('(<[^<>a-zA-Z]*div[^<>]*>)(\s*<!--.*?-->|)((.|\s)*)', '\g<1> <!-- ' + classlist + ' -->\g<3>', match.text)
-                        stack.pop()
+                            match.text = re.sub('(<[^<>a-zA-Z]*div[^<>]*>)((.|#REM)*<!--.*?-->(.|#ENDREM)*|)((|.)*)', '\g<1> #REM<!-- ' + classlist + ' -->#ENDREM\g<5>', match.text)
+
                         newtext = newtext + match.text
+
+                    stack.pop()
                 else:
-                    sublime.error_message('Too many closing div-tags')
+                    sublime.error_message('Too many closing div-tags at tag nr: ' + str(iterVar))
                     return
 
         if len(stack) > 0:
-            sublime.error_message('Too many opening div-tags')
+            print(stack[-1].text)
+            sublime.error_message('Too many opening div-tags. Couldnt match ' + str(len(stack)))
+            return
+
+        if remains is None:
+            sublime.error_message('Could not find first div tag')
             return
 
         newtext = remains.group(1) + newtext
