@@ -108,5 +108,5 @@ class TranscryptEventListener(sublime_plugin.EventListener):
             settings = sublime.load_settings('formatter.sublime_settings')
             ParseOnSave = True if (settings.get('parseonsave') == 'yes') else False
 
-        if bool(re.search('\.html', view.file_name())) and not bool(re.search('Data.Public', view.file_name())) and ParseOnSave:
+        if bool(re.search('\.html', view.file_name())) and not bool(re.search('Data.Public', view.file_name())) and not bool(re.search('Data.javascript', view.file_name())) and ParseOnSave:
             view.run_command("add_comments")
