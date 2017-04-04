@@ -32,7 +32,7 @@ class AddCommentsCommand(sublime_plugin.TextCommand):
             iterVar = iterVar + 1
             optag = not bool(re.search('<[^<>]*\/[^<>]*div', match.group(0)))
             if optag:
-                result = re.search('class=["\']([^"\']*)', match.group(0))
+                result = re.search('class=["\']([^"\']*)', re.sub('#IF.*#ENDIF', '', match.group(0)))
                 classes = "" if result is None else result.group(1)
 
             else:
@@ -108,5 +108,5 @@ class TranscryptEventListener(sublime_plugin.EventListener):
             settings = sublime.load_settings('formatter.sublime_settings')
             ParseOnSave = True if (settings.get('parseonsave') == 'yes') else False
 
-        if bool(re.search('\.html', view.file_name())) and ParseOnSave:
+        if bool(re.search('\.html', view.file_name())) and not bool(re.search('Data.Public', view.file_name())) and ParseOnSave:
             view.run_command("add_comments")
